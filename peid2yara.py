@@ -71,6 +71,8 @@ def increment_str(s):
 
 # guarantee unicode string
 _u = lambda t: t.decode('UTF-8', 'replace') if isinstance(t, str) else t
+# guarantee byte string in UTF8 encoding
+_u8 = lambda t: t.encode('UTF-8', 'replace') if isinstance(t, unicode) else t
 
 
 def peid_parser(file_name, obj):
@@ -94,7 +96,7 @@ def peid_parser(file_name, obj):
                 line = re.sub("(-)[^>]", "_", line)
                 line = re.sub("--", "-", line)
                 line = re.sub("\.", "_", line)
-                line = re.sub("\+", "plus", line)
+                line = re.sub("\+", "p", line)
                 line = re.sub(r"[^\x00-\x7F]+", "", line)
                 line = line.strip()
                 if line[0].isdigit():
